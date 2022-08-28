@@ -27,6 +27,23 @@ provider:
     PROJECT_NAME: Udagram-Todo
     TODOS_TABLE: Todos-${self:provider.stage}
     S3_BUCKET_NAME: serverless-udagram-todo-images-${self:provider.stage}
+  
+  logs:
+    restApi:
+      accessLogging: true
+      format: "requestId: $context.requestId"
+      executionLogging: true
+      level: INFO
+      fullExecutionData: true
+
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - xray:PutTelemetryRecords
+            - xray:PutTraceSegments
+          Resource: "*"
 
 
 custom:
